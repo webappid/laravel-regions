@@ -1,0 +1,43 @@
+{
+  "name": "webappid/region",
+  "description": "Regions Data for laravel framework. Right now support for indonesian data only",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dyan Galih",
+      "email": "dyan.galih@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "WebAppId\\Region\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "WebAppId\\Region\\Tests\\": "src/tests"
+    }
+  },
+  "require": {
+    "php": ">=7.2.0",
+    "illuminate/support": "~5.5",
+    "webappid/laravel-ddd": "1.0.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "7.2.6",
+    "squizlabs/php_codesniffer": "3.*",
+    "orchestra/testbench": "~3.5",
+    "mockery/mockery": "dev-master@dev"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "WebAppId\\Region\\ServiceProvider"
+      ],
+      "aliases": {
+        "Region": "WebAppId\\Region\\Facade"
+      }
+    }
+  }
+}
