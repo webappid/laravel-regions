@@ -10,7 +10,7 @@ namespace WebAppId\Region\Repositories\Contracts;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use WebAppId\Region\Models\Region;
-use WebAppId\Services\Params\RegionParam;
+use WebAppId\Region\Services\Params\RegionParam;
 
 /**
  * @author: Dyan Galih<dyan.galih@gmail.com> https://dyangalih.com

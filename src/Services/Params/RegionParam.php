@@ -5,7 +5,7 @@
  * Time: 18:43
  */
 
-namespace WebAppId\Services\Params;
+namespace WebAppId\Region\Services\Params;
 
 
 class RegionParam

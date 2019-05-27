@@ -34,12 +34,6 @@ class RegionServiceTest extends TestCase
         return $this->getFaker()->numberBetween(0, strlen(self::SEARCH) - 1);
     }
 
-    public function testGetSubDistrictLike()
-    {
-        $results = $this->getContainer()->call([$this->regionService, 'getSubDistrictLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
-        $this->assertTrue($results->isStatus());
-    }
-
     public function testGetDistrictLike()
     {
         $results = $this->getContainer()->call([$this->regionService, 'getDistrictLike'], ['q' => self::SEARCH[$this->getRandomString()]]);

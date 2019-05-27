@@ -12,7 +12,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use WebAppId\Region\Models\Region;
 use WebAppId\Region\Repositories\Contracts\RegionRepositoryContract;
-use WebAppId\Services\Params\RegionParam;
+use WebAppId\Region\Services\Params\RegionParam;
 
 /**
  * @author: Dyan Galih<dyan.galih@gmail.com> https://dyangalih.com

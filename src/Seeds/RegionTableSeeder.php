@@ -1,10 +1,19 @@
 <?php
 
-use App\Http\Services\Params\RegionParam;
+namespace WebAppId\Region\Seeds;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use WebAppId\Region\Repositories\RegionRepository;
+use WebAppId\Region\Services\Params\RegionParam;
 
+/**
+ * @author: Dyan Galih<dyan.galih@gmail.com>
+ * Date: 2019-05-28
+ * Time: 02:10
+ * Class RegionTableSeeder
+ * @package WebAppId\Region\Seeds
+ */
 class RegionTableSeeder extends Seeder
 {
     /**
@@ -16,9 +25,9 @@ class RegionTableSeeder extends Seeder
     public function run(RegionRepository $regionRepository)
     {
         if(!strpos($_SERVER['SCRIPT_NAME'], 'phpunit')){
-            $file = __DIR__ . '/../migrations/csv/regions.csv';
+            $file = __DIR__ . '/../Resources/csv/regions.csv';
         }else{
-            $file = __DIR__ . '/../migrations/csv/dummy/regions.csv';
+            $file = __DIR__ . '/../Resources/csv/dummy/regions.csv';
         }
 
         $header = array('id', 'category_id', 'parent_id', 'name');

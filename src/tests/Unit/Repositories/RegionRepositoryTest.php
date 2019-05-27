@@ -9,8 +9,8 @@ namespace WebAppId\Region\Tests\Unit\Repositories;
 
 
 use WebAppId\Region\Repositories\RegionRepository;
+use WebAppId\Region\Services\Params\RegionParam;
 use WebAppId\Region\Tests\TestCase;
-use WebAppId\Services\Params\RegionParam;
 
 class RegionRepositoryTest extends TestCase
 {
