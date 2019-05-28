@@ -58,12 +58,27 @@ interface RegionRepositoryContract
     public function getProvinceLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator;
 
     /**
+     * @param int $id
+     * @param Region $region
+     * @return Region|null
+     */
+    public function getProvinceById(int $id, Region $region): ?Region;
+
+    /**
      * @param string $q
      * @param Region $region
      * @param int $limit
      * @return LengthAwarePaginator
      */
     public function getCityLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator;
+
+    /**
+     * @param int $id
+     * @param Region $region
+     * @return Region|null
+     */
+    public function getCityById(int $id, Region $region): ?Region;
+
 
     /**
      * @param string $q
@@ -74,6 +89,13 @@ interface RegionRepositoryContract
     public function getDistrictLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator;
 
     /**
+     * @param int $id
+     * @param Region $region
+     * @return Region|null
+     */
+    public function getDistrictId(int $id, Region $region): ?Region;
+
+    /**
      * @param string $q
      * @param Region $region
      * @param int $limit
@@ -81,4 +103,10 @@ interface RegionRepositoryContract
      */
     public function getSubDistrictLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator;
 
+    /**
+     * @param int $id
+     * @param Region $region
+     * @return Region
+     */
+    public function getSubDistrictId(int $id, Region $region): Region;
 }

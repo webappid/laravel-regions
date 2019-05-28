@@ -80,10 +80,11 @@ class RegionRepository implements RegionRepositoryContract
     /**
      * @param string $q
      * @param array $column
+     * @param int $id
      * @param Region $region
      * @return mixed
      */
-    private function getStructProvince(string $q, array $column, Region $region)
+    private function getStructProvince(?string $q, array $column, ?int $id, Region $region)
     {
         $province = array(
             "province.id AS province_id",
@@ -99,16 +100,20 @@ class RegionRepository implements RegionRepositoryContract
                 ->when(!is_null($q), function ($query) use ($q) {
                     return $query
                         ->orWhere('province.name', 'LIKE', '%' . $q . '%');
+                })
+                ->when(!is_null($id), function ($query) use ($id) {
+                    return $query->where('province.id', $id);
                 });
     }
 
     /**
      * @param string $q
      * @param array $column
+     * @param int $id
      * @param Region $region
      * @return mixed
      */
-    private function getStructCity(string $q, array $column, Region $region)
+    private function getStructCity(?string $q, array $column, ?int $id, Region $region)
     {
         $city = array(
             "city.id AS city_id",
@@ -118,7 +123,7 @@ class RegionRepository implements RegionRepositoryContract
         $column = array_merge($city, $column);
 
         return
-            $this->getStructProvince($q, $column, $region)
+            $this->getStructProvince($q, $column, null, $region)
                 ->join('regions AS city', function ($query) {
                     return $query->on('province.id', 'city.parent_id')
                         ->on('province.category_id', '1')
@@ -126,6 +131,8 @@ class RegionRepository implements RegionRepositoryContract
                 })->when(!is_null($q), function ($query) use ($q) {
                     return $query
                         ->orWhere('city.name', 'LIKE', '%' . $q . '%');
+                })->when(!is_null($id), function ($query) use ($id) {
+                    return $query->where('city.id', $id);
                 });
 
     }
@@ -133,10 +140,11 @@ class RegionRepository implements RegionRepositoryContract
     /**
      * @param string $q
      * @param array $column
+     * @param int $id
      * @param Region $region
      * @return mixed
      */
-    private function getStructDistrict(string $q, array $column, Region $region)
+    private function getStructDistrict(?string $q, array $column, ?int $id, Region $region)
     {
         $district = array(
             "district.id AS district_id",
@@ -144,43 +152,54 @@ class RegionRepository implements RegionRepositoryContract
 
         $column = array_merge($district, $column);
 
-        return $this->getStructCity($q, $column, $region)
+        return $this->getStructCity($q, $column, null, $region)
             ->join('regions AS district', function ($query) {
                 return $query->on('district.parent_id', 'city.id')
                     ->on('district.category_id', '3');
             })->when(!is_null($q), function ($query) use ($q) {
                 return $query
                     ->orWhere('district.name', 'LIKE', '%' . $q . '%');
+            })->when(!is_null($id), function ($query) use ($id) {
+                return $query->where('district.id', $id);
             });
 
     }
 
     /**
      * @param string $q
+     * @param int $id
      * @param Region $region
      * @return mixed
      */
-    private function getStructSubDistrict(string $q, Region $region)
+    private function getStructSubDistrict(?string $q, ?int $id, Region $region)
     {
         $sub_district = array(
             "sub_district.id AS sub_district_id",
             "sub_district.name AS sub_district_name"
         );
 
-        return $this->getStructDistrict($q, $sub_district, $region)
+        return $this->getStructDistrict($q, $sub_district, null, $region)
             ->join('regions AS sub_district', function ($query) {
                 return $query->on('district.id', 'sub_district.parent_id')
                     ->on('sub_district.category_id', '4');
             })->when(!is_null($q), function ($query) use ($q) {
                 return $query
                     ->orWhere('sub_district.name', 'LIKE', '%' . $q . '%');
+            })->when(!is_null($id), function ($query) use ($id) {
+                return $query->where('sub_district.id', $id);
             });
     }
 
+    /**
+     * @param string $q
+     * @param Region $region
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
     public function getProvinceLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator
     {
         return $this
-            ->getStructProvince($q, [], $region)
+            ->getStructProvince($q, [], null, $region)
             ->paginate($limit);
     }
 
@@ -193,7 +212,7 @@ class RegionRepository implements RegionRepositoryContract
     public function getCityLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator
     {
         return $this
-            ->getStructCity($q, [], $region)
+            ->getStructCity($q, [], null, $region)
             ->paginate($limit);
     }
 
@@ -206,7 +225,7 @@ class RegionRepository implements RegionRepositoryContract
     public function getDistrictLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator
     {
         return $this
-            ->getStructDistrict($q, [], $region)
+            ->getStructDistrict($q, [], null, $region)
             ->paginate($limit);
     }
 
@@ -219,7 +238,47 @@ class RegionRepository implements RegionRepositoryContract
     public function getSubDistrictLike(string $q, Region $region, int $limit = 20): LengthAwarePaginator
     {
         return $this
-            ->getStructSubDistrict($q, $region)
+            ->getStructSubDistrict($q, null, $region)
             ->paginate($limit);
+    }
+
+    /**
+     * @param int $id
+     * @param Region $region
+     * @return Region|null
+     */
+    public function getProvinceById(int $id, Region $region): ?Region
+    {
+        return $this->getStructProvince(null, [], $id, $region)->first();
+    }
+
+    /**
+     * @param int $id
+     * @param Region $region
+     * @return Region|null
+     */
+    public function getCityById(int $id, Region $region): ?Region
+    {
+        return $this->getStructCity(null, [], $id, $region)->first();
+    }
+
+    /**
+     * @param int $id
+     * @param Region $region
+     * @return Region|null
+     */
+    public function getDistrictId(int $id, Region $region): ?Region
+    {
+        return $this->getStructDistrict(null, [], $id, $region)->first();
+    }
+
+    /**
+     * @param int $id
+     * @param Region $region
+     * @return Region
+     */
+    public function getSubDistrictId(int $id, Region $region): Region
+    {
+        return $this->getStructSubDistrict(null, $id, $region)->first();
     }
 }

@@ -82,4 +82,22 @@ class RegionRepositoryTest extends TestCase
         $results = $this->getContainer()->call([$this->regionRepository, 'getProvinceLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
         $this->assertGreaterThanOrEqual(1, count($results));
     }
+
+    public function testProvinceId(){
+        $results = $this->getContainer()->call([$this->regionRepository, 'getProvinceLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
+        $result = $this->getContainer()->call([$this->regionRepository,'getProvinceById'],['id' => $results[0]->province_id]);
+        self::assertNotEquals(null, $result);
+    }
+
+    public function testCityId(){
+        $results = $this->getContainer()->call([$this->regionRepository, 'getCityLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
+        $result = $this->getContainer()->call([$this->regionRepository,'getCityById'],['id' => $results[0]->city_id]);
+        self::assertNotEquals(null, $result);
+    }
+
+    public function testDistrictId(){
+        $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
+        $result = $this->getContainer()->call([$this->regionRepository,'getDistrictId'],['id' => $results[0]->district_id]);
+        self::assertNotEquals(null, $result);
+    }
 }
