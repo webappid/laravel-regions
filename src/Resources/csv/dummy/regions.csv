@@ -1,70 +1,63 @@
 11,1,0,Dki Jakarta
 15,1,0,Jawa Timur
-18,1,0,Nusa Tenggara Barat
-218,2,11,Kabupaten Kepulauan Seribu
-219,2,11,Kota Jakarta Selatan
-220,2,11,Kota Jakarta Timur
-221,2,11,Kota Jakarta Pusat
-222,2,11,Kota Jakarta Barat
-223,2,11,Kota Jakarta Utara
-327,2,15,Kota Surabaya
-351,2,18,Kabupaten Bima
+218,2,11,Jakarta
+327,2,15,Surabaya
 4983,3,327,Asemrowo
 4984,3,327,Benowo
 4981,3,327,Bubutan
 4977,3,327,Bulak
-3023,3,220,Cakung
-3030,3,221,Cempaka Putih
-3040,3,222,Cengkareng
-3008,3,219,Cilandak
-3047,3,223,Cilincing
-3017,3,220,Ciracas
+3023,3,218,Cakung
+3030,3,218,Cempaka Putih
+3040,3,218,Cengkareng
+3008,3,218,Cilandak
+3047,3,218,Cilincing
+3017,3,218,Ciracas
 4966,3,327,Dukuh Pakis
-3022,3,220,Duren Sawit
-3033,3,221,Gambir
+3022,3,218,Duren Sawit
+3033,3,218,Gambir
 4957,3,327,Gayungan
-3037,3,222,Grogol Petamburan
+3037,3,218,Grogol Petamburan
 4964,3,327,Gubeng
-3006,3,219,Jagakarsa
+3006,3,218,Jagakarsa
 4956,3,327,Jambangan
-3029,3,221,Johar Baru
-3011,3,219,Kebayoran Baru
-3010,3,219,Kebayoran Lama
-3035,3,222,Kebon Jeruk
-3046,3,223,Kelapa Gading
-3031,3,221,Kemayoran
-3034,3,222,Kembangan
+3029,3,218,Johar Baru
+3011,3,218,Kebayoran Baru
+3010,3,218,Kebayoran Lama
+3035,3,218,Kebon Jeruk
+3046,3,218,Kelapa Gading
+3031,3,218,Kemayoran
+3034,3,218,Kembangan
 4976,3,327,Kenjeran
 3004,3,218,Kepulauan Seribu Selatan
 3005,3,218,Kepulauan Seribu Utara
-3045,3,223,Koja
-3020,3,220,Kramat Jati
+3045,3,218,Koja
+3020,3,218,Kramat Jati
 4982,3,327,Krembangan
 4968,3,327,Lakarsantri
-3019,3,220,Makasar
-3012,3,219,Mampang Prapatan
-3025,3,220,Matraman
-3027,3,221,Menteng
+3019,3,218,Makasar
+3012,3,218,Mampang Prapatan
+3025,3,218,Matraman
+3027,3,218,Menteng
 4963,3,327,Mulyorejo
-3043,3,223,Pademangan
+3043,3,218,Pademangan
 4985,3,327,Pakal
-3036,3,222,Palmerah
-3013,3,219,Pancoran
-3007,3,219,Pasar Minggu
-3016,3,220,Pasar Rebo
-3042,3,223,Penjaringan
-3024,3,220,Pulo Gadung
+3036,3,218,Palmerah
+3013,3,218,Pancoran
+3007,3,218,Pasar Minggu
+3016,3,218,Pasar Rebo
+3042,3,218,Penjaringan
+3024,3,218,Pulo Gadung
 4961,3,327,Rungkut
 4969,3,327,Sambikerep
-3032,3,221,Sawah Besar
+3032,3,218,Sawah Besar
 4979,3,327,Semampir
-3028,3,221,Senen
+3028,3,218,Senen
 4978,3,327,Simokerto
-3038,3,222,Tambora
-5292,3,351,Tambora
+3038,3,218,Tambora
+5292,3,327,Tambora
 4970,3,327,Tandes
-3044,3,223,Tanjung Priok
-3014,3,219,Tebet
+3044,3,218,Tanjung Priok
+3014,3,218,Tebet
 4959,3,327,Tenggilis Mejoyo
 4967,3,327,Wiyung
 4958,3,327,Wonocolo
