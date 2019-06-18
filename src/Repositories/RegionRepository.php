@@ -84,7 +84,7 @@ class RegionRepository implements RegionRepositoryContract
      * @param Region $region
      * @return mixed
      */
-    private function getStructProvince(?string $q, array $column, ?int $id, Region $region)
+    protected function getStructProvince(?string $q, array $column, ?int $id, Region $region)
     {
         $province = array(
             "province.id AS province_id",
@@ -113,7 +113,7 @@ class RegionRepository implements RegionRepositoryContract
      * @param Region $region
      * @return mixed
      */
-    private function getStructCity(?string $q, array $column, ?int $id, Region $region)
+    protected function getStructCity(?string $q, array $column, ?int $id, Region $region)
     {
         $city = array(
             "city.id AS city_id",
@@ -144,7 +144,7 @@ class RegionRepository implements RegionRepositoryContract
      * @param Region $region
      * @return mixed
      */
-    private function getStructDistrict(?string $q, array $column, ?int $id, Region $region)
+    protected function getStructDistrict(?string $q, array $column, ?int $id, Region $region)
     {
         $district = array(
             "district.id AS district_id",
@@ -171,7 +171,7 @@ class RegionRepository implements RegionRepositoryContract
      * @param Region $region
      * @return mixed
      */
-    private function getStructSubDistrict(?string $q, ?int $id, Region $region)
+    protected function getStructSubDistrict(?string $q, ?int $id, Region $region)
     {
         $sub_district = array(
             "sub_district.id AS sub_district_id",
