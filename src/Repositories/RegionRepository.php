@@ -126,8 +126,8 @@ class RegionRepository implements RegionRepositoryContract
             $this->getStructProvince($q, $column, null, $region)
                 ->join('regions AS city', function ($query) {
                     return $query->on('province.id', 'city.parent_id')
-                        ->on('province.category_id', '1')
-                        ->on('city.category_id', '2');
+                        ->where('province.category_id', 1)
+                        ->where('city.category_id', 2);
                 })->when(!is_null($q), function ($query) use ($q) {
                     return $query
                         ->orWhere('city.name', 'LIKE', '%' . $q . '%');
@@ -155,7 +155,7 @@ class RegionRepository implements RegionRepositoryContract
         return $this->getStructCity($q, $column, null, $region)
             ->join('regions AS district', function ($query) {
                 return $query->on('district.parent_id', 'city.id')
-                    ->on('district.category_id', '3');
+                    ->where('district.category_id', 3);
             })->when(!is_null($q), function ($query) use ($q) {
                 return $query
                     ->orWhere('district.name', 'LIKE', '%' . $q . '%');
@@ -181,7 +181,7 @@ class RegionRepository implements RegionRepositoryContract
         return $this->getStructDistrict($q, $sub_district, null, $region)
             ->join('regions AS sub_district', function ($query) {
                 return $query->on('district.id', 'sub_district.parent_id')
-                    ->on('sub_district.category_id', '4');
+                    ->where('sub_district.category_id', 4);
             })->when(!is_null($q), function ($query) use ($q) {
                 return $query
                     ->orWhere('sub_district.name', 'LIKE', '%' . $q . '%');
