@@ -4,6 +4,7 @@ namespace WebAppId\Region\Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use WebAppId\DDD\Tools\Lazy;
 use WebAppId\Region\Repositories\RegionRepository;
 use WebAppId\Region\Services\Params\RegionParam;
 
@@ -21,6 +22,7 @@ class RegionTableSeeder extends Seeder
      *
      * @param RegionRepository $regionRepository
      * @return void
+     * @throws \Exception
      */
     public function run(RegionRepository $regionRepository)
     {
@@ -40,11 +42,9 @@ class RegionTableSeeder extends Seeder
                 $data = array_combine($header, $row);
                 $region = $this->container->call([$regionRepository, 'getByNameAndParentId'], ['name' => $data['name'], 'parentId' => (int)$data['parent_id']]);
                 if ($region == null) {
+                    $data['name'] = ucwords(strtolower($data['name']));
                     $regionParam = new RegionParam();
-                    $regionParam->setId((int)$data['id']);
-                    $regionParam->setParentId((int)$data['parent_id']);
-                    $regionParam->setCategoryId((int)$data['category_id']);
-                    $regionParam->setName(ucwords(strtolower($data['name'])));
+                    $regionParam = Lazy::copyFromArray($data,$regionParam, Lazy::AUTOCAST);
                     $this->container->call([$regionRepository, 'store'], ['regionParam' => $regionParam]);
                 }
             }

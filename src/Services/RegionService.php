@@ -8,6 +8,13 @@ use WebAppId\Region\Repositories\RegionRepository;
 use WebAppId\Region\Responses\RegionResponse;
 use WebAppId\Region\Services\Contracts\RegionServiceContract;
 
+/**
+ * @author: Dyan Galih<dyan.galih@gmail.com>
+ * Date: 2019-07-29
+ * Time: 14:26
+ * Class RegionService
+ * @package WebAppId\Region\Services
+ */
 class RegionService extends BaseService implements RegionServiceContract
 {
 

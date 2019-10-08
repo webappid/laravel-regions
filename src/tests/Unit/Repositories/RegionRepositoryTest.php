@@ -38,9 +38,9 @@ class RegionRepositoryTest extends TestCase
     public function dummy(): RegionParam
     {
         $dummy = new RegionParam();
-        $dummy->setName($this->getFaker()->text(30));
-        $dummy->setCategoryId($this->getFaker()->randomNumber());
-        $dummy->setParentId($this->getFaker()->randomNumber());
+        $dummy->name = $this->getFaker()->text(30);
+        $dummy->category_id = $this->getFaker()->randomNumber();
+        $dummy->parent_id = $this->getFaker()->randomNumber();
         return $dummy;
     }
 

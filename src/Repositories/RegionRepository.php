@@ -10,6 +10,7 @@ namespace WebAppId\Region\Repositories;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use WebAppId\DDD\Tools\Lazy;
 use WebAppId\Region\Models\Region;
 use WebAppId\Region\Repositories\Contracts\RegionRepositoryContract;
 use WebAppId\Region\Services\Params\RegionParam;
@@ -25,17 +26,16 @@ class RegionRepository implements RegionRepositoryContract
      * @param RegionParam $regionParam
      * @param Region $region
      * @return Region|null
+     * @throws \Exception
      */
     public function store(RegionParam $regionParam, Region $region): ?Region
     {
         try {
-            if ($regionParam->getId() != null) {
-                $region->id = $regionParam->getId();
+            if ($regionParam->id != null) {
+                $region->id = $regionParam->id;
             }
 
-            $region->category_id = $regionParam->getCategoryId();
-            $region->parent_id = $regionParam->getParentId();
-            $region->name = $regionParam->getName();
+            $region = Lazy::copy($regionParam, $region);
 
             $region->save();
             return $region;

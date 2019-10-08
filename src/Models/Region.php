@@ -11,6 +11,7 @@ namespace WebAppId\Region\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @author: Dyan Galih<dyan.galih@gmail.com> https://dyangalih.com
@@ -20,11 +21,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Region extends Model
 {
     protected $table = 'regions';
-    
+
     protected $fillable = ['id', 'category_id', 'parent_id', 'name'];
-    
+
     protected $hidden = ['created_at', 'updated_at'];
-    
+
     /**
      * @return BelongsTo
      */
@@ -32,7 +33,7 @@ class Region extends Model
     {
         return $this->belongsTo(Region::class, 'parent_id');
     }
-    
+
     /**
      * @return HasMany
      */
@@ -40,5 +41,12 @@ class Region extends Model
     {
         return $this->hasMany(Region::class, 'parent_id');
     }
-    
+
+    /**
+     * @return HasOne
+     */
+    public function postalCode()
+    {
+        return $this->hasOne('region_postal_codes', 'region_id', 'id');
+    }
 }
