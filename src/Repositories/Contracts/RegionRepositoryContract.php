@@ -109,4 +109,23 @@ interface RegionRepositoryContract
      * @return Region
      */
     public function getSubDistrictId(int $id, Region $region): Region;
+
+    /**
+     * @param string $q
+     * @param int $parentId
+     * @param Region $region
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
+    public function getCityLikeWithParentId(string $q, int $parentId, Region $region, int $limit = 20): LengthAwarePaginator;
+
+
+    /**
+     * @param string $q
+     * @param int $parentId
+     * @param Region $region
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
+    public function getDistrictLikeWithParentId(string $q, int $parentId, Region $region, int $limit = 20): LengthAwarePaginator;
 }

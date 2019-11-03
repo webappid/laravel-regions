@@ -15,7 +15,7 @@ use WebAppId\Region\Tests\TestCase;
 class RegionRepositoryTest extends TestCase
 {
 
-    private const SEARCH = 'aiueo';
+    private const SEARCH = 'aiu';
 
     /**
      * @var RegionRepository
@@ -83,21 +83,40 @@ class RegionRepositoryTest extends TestCase
         $this->assertGreaterThanOrEqual(1, count($results));
     }
 
-    public function testProvinceId(){
+    public function testProvinceId()
+    {
         $results = $this->getContainer()->call([$this->regionRepository, 'getProvinceLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
-        $result = $this->getContainer()->call([$this->regionRepository,'getProvinceById'],['id' => $results[0]->province_id]);
+        $result = $this->getContainer()->call([$this->regionRepository, 'getProvinceById'], ['id' => $results[0]->province_id]);
         self::assertNotEquals(null, $result);
     }
 
-    public function testCityId(){
+    public function testCityId()
+    {
         $results = $this->getContainer()->call([$this->regionRepository, 'getCityLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
-        $result = $this->getContainer()->call([$this->regionRepository,'getCityById'],['id' => $results[0]->city_id]);
+        $result = $this->getContainer()->call([$this->regionRepository, 'getCityById'], ['id' => $results[0]->city_id]);
         self::assertNotEquals(null, $result);
     }
 
-    public function testDistrictId(){
+    public function testDistrictId()
+    {
         $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
-        $result = $this->getContainer()->call([$this->regionRepository,'getDistrictId'],['id' => $results[0]->district_id]);
+        $result = $this->getContainer()->call([$this->regionRepository, 'getDistrictId'], ['id' => $results[0]->district_id]);
         self::assertNotEquals(null, $result);
+    }
+
+    public function testDistrictLikeWithParentId()
+    {
+        $parents = [1, 2, 3];
+        $parent = $parents[$this->getFaker()->numberBetween(0, count($parents) - 1)];
+        $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLikeWithParentId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
+        $this->assertGreaterThanOrEqual(1, count($results));
+    }
+
+    public function testCityLikeWithParentId()
+    {
+        $parents = [1, 2, 3];
+        $parent = $parents[$this->getFaker()->numberBetween(0, count($parents) - 1)];
+        $results = $this->getContainer()->call([$this->regionRepository, 'getCityLikeWithParentId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
+        $this->assertGreaterThanOrEqual(1, count($results));
     }
 }
