@@ -75,4 +75,25 @@ class RegionServiceTest extends TestCase
         $results = $this->getContainer()->call([$this->regionService, 'getDistrictLikeWithProvinceId'], ['q' => self::SEARCH[$this->getRandomString()], 'provinceId' => $province]);
         $this->assertTrue($results->isStatus());
     }
+
+    public function testDistrictLikeWithCityIn()
+    {
+        $cities = [219, 327];
+        $results = $this->getContainer()->call([$this->regionService, 'getDistrictLikeWithCityIn'], ['q' => self::SEARCH[$this->getRandomString()], 'cities' => $cities]);
+        $this->assertTrue($results->isStatus());
+    }
+
+    public function testCityLikeWithProvinceIn()
+    {
+        $provinceList = [11, 15];
+        $results = $this->getContainer()->call([$this->regionService, 'getCityLikeWithProvinceIn'], ['q' => self::SEARCH[$this->getRandomString()], 'provinces' => $provinceList]);
+        $this->assertTrue($results->isStatus());
+    }
+
+    public function testDistrictLikeWithProvinceIn()
+    {
+        $provinceList = [11, 15];
+        $results = $this->getContainer()->call([$this->regionService, 'getDistrictLikeWithProvinceIn'], ['q' => self::SEARCH[$this->getRandomString()], 'provinces' => $provinceList]);
+        $this->assertTrue($results->isStatus());
+    }
 }

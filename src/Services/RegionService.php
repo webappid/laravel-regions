@@ -160,4 +160,67 @@ class RegionService extends BaseService implements RegionServiceContract
         }
         return $regionResponse;
     }
+
+    /**
+     * @param string $q
+     * @param array $provinces
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getCityLikeWithProvinceIn(string $q, array $provinces, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse
+    {
+        $result = $this->getContainer()->call([$regionRepository, 'getCityLikeWithProvinceIn'], ['q' => $q, 'provinces' => $provinces]);
+        if (count($result) > 0) {
+            $regionResponse->setStatus(true);
+            $regionResponse->setMessage('Get City Data By Provinces Found');
+            $regionResponse->setRegion($result);
+        } else {
+            $regionResponse->setStatus(false);
+            $regionResponse->setMessage('No City Data By Provinces Available');
+        }
+        return $regionResponse;
+    }
+
+    /**
+     * @param string $q
+     * @param array $provinces
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getDistrictLikeWithProvinceIn(string $q, array $provinces, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse
+    {
+        $result = $this->getContainer()->call([$regionRepository, 'getDistrictLikeWithProvinceIn'], ['q' => $q, 'provinces' => $provinces]);
+        if (count($result) > 0) {
+            $regionResponse->setStatus(true);
+            $regionResponse->setMessage('Get District Data By Provinces Found');
+            $regionResponse->setRegion($result);
+        } else {
+            $regionResponse->setStatus(false);
+            $regionResponse->setMessage('No District Data By Provinces Available');
+        }
+        return $regionResponse;
+    }
+
+    /**
+     * @param string $q
+     * @param array $cities
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getDistrictLikeWithCityIn(string $q, array $cities, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse
+    {
+        $result = $this->getContainer()->call([$regionRepository, 'getDistrictLikeWithCityIn'], ['q' => $q, 'cities' => $cities]);
+        if (count($result) > 0) {
+            $regionResponse->setStatus(true);
+            $regionResponse->setMessage('Get District Data By Cities Found');
+            $regionResponse->setRegion($result);
+        } else {
+            $regionResponse->setStatus(false);
+            $regionResponse->setMessage('No District Data By Cities Available');
+        }
+        return $regionResponse;
+    }
 }
