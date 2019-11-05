@@ -104,19 +104,27 @@ class RegionRepositoryTest extends TestCase
         self::assertNotEquals(null, $result);
     }
 
-    public function testDistrictLikeWithParentId()
+    public function testDistrictLikeWithCityId()
     {
-        $parents = [1, 2, 3];
-        $parent = $parents[$this->getFaker()->numberBetween(0, count($parents) - 1)];
-        $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLikeWithCityId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
+        $cities = [219, 327];
+        $city = $cities[$this->getFaker()->numberBetween(0, count($cities) - 1)];
+        $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLikeWithCityId'], ['q' => self::SEARCH[$this->getRandomString()], 'cityId' => $city]);
         $this->assertGreaterThanOrEqual(1, count($results));
     }
 
-    public function testCityLikeWithParentId()
+    public function testCityLikeWithProvinceId()
     {
-        $parents = [1, 2, 3];
-        $parent = $parents[$this->getFaker()->numberBetween(0, count($parents) - 1)];
-        $results = $this->getContainer()->call([$this->regionRepository, 'getCityLikeWithProvinceId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
+        $provinceList = [11, 15];
+        $province = $provinceList[$this->getFaker()->numberBetween(0, count($provinceList) - 1)];
+        $results = $this->getContainer()->call([$this->regionRepository, 'getCityLikeWithProvinceId'], ['q' => self::SEARCH[$this->getRandomString()], 'provinceId' => $province]);
+        $this->assertGreaterThanOrEqual(1, count($results));
+    }
+
+    public function testDistrictLikeWithProvinceId()
+    {
+        $provinceList = [11, 15];
+        $province = $provinceList[$this->getFaker()->numberBetween(0, count($provinceList) - 1)];
+        $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLikeWithProvinceId'], ['q' => self::SEARCH[$this->getRandomString()], 'provinceId' => $province]);
         $this->assertGreaterThanOrEqual(1, count($results));
     }
 }
