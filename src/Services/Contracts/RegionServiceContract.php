@@ -50,4 +50,31 @@ interface RegionServiceContract
      * @return RegionResponse
      */
     public function getSubDistrictLike(string $q, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse;
+
+    /**
+     * @param string $q
+     * @param int $provinceId
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getCityLikeWithProvinceId(string $q, int $provinceId, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse;
+
+    /**
+     * @param string $q
+     * @param int $provinceId
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getDistrictLikeWithProvinceId(string $q, int $provinceId, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse;
+
+    /**
+     * @param string $q
+     * @param int $cityId
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getDistrictLikeWithCityId(string $q, int $cityId, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse;
 }

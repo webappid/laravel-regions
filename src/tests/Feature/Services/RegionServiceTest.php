@@ -15,7 +15,7 @@ use WebAppId\Region\Tests\TestCase;
 class RegionServiceTest extends TestCase
 {
 
-    private const SEARCH = 'aiueo';
+    private const SEARCH = 'aiu';
 
     /**
      * @var RegionService
@@ -49,6 +49,30 @@ class RegionServiceTest extends TestCase
     public function testGetProvinceLike()
     {
         $results = $this->getContainer()->call([$this->regionService, 'getProvinceLike'], ['q' => self::SEARCH[$this->getRandomString()]]);
+        $this->assertTrue($results->isStatus());
+    }
+
+    public function testDistrictLikeWithCityId()
+    {
+        $cities = [219, 327];
+        $city = $cities[$this->getFaker()->numberBetween(0, count($cities) - 1)];
+        $results = $this->getContainer()->call([$this->regionService, 'getDistrictLikeWithCityId'], ['q' => self::SEARCH[$this->getRandomString()], 'cityId' => $city]);
+        $this->assertTrue($results->isStatus());
+    }
+
+    public function testCityLikeWithProvinceId()
+    {
+        $provinceList = [11, 15];
+        $province = $provinceList[$this->getFaker()->numberBetween(0, count($provinceList) - 1)];
+        $results = $this->getContainer()->call([$this->regionService, 'getCityLikeWithProvinceId'], ['q' => self::SEARCH[$this->getRandomString()], 'provinceId' => $province]);
+        $this->assertTrue($results->isStatus());
+    }
+
+    public function testDistrictLikeWithProvinceId()
+    {
+        $provinceList = [11, 15];
+        $province = $provinceList[$this->getFaker()->numberBetween(0, count($provinceList) - 1)];
+        $results = $this->getContainer()->call([$this->regionService, 'getDistrictLikeWithProvinceId'], ['q' => self::SEARCH[$this->getRandomString()], 'provinceId' => $province]);
         $this->assertTrue($results->isStatus());
     }
 }

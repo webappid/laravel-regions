@@ -31,7 +31,7 @@ class RegionService extends BaseService implements RegionServiceContract
             $regionResponse->setStatus(true);
             $regionResponse->setMessage('Get Province Data Found');
             $regionResponse->setRegion($result);
-        }else{
+        } else {
             $regionResponse->setStatus(false);
             $regionResponse->setMessage('No Province Data Available');
         }
@@ -51,7 +51,7 @@ class RegionService extends BaseService implements RegionServiceContract
             $regionResponse->setStatus(true);
             $regionResponse->setMessage('Get City Data Found');
             $regionResponse->setRegion($result);
-        }else{
+        } else {
             $regionResponse->setStatus(false);
             $regionResponse->setMessage('No City Data Available');
         }
@@ -71,7 +71,7 @@ class RegionService extends BaseService implements RegionServiceContract
             $regionResponse->setStatus(true);
             $regionResponse->setMessage('Get District Data Found');
             $regionResponse->setRegion($result);
-        }else{
+        } else {
             $regionResponse->setStatus(false);
             $regionResponse->setMessage('No District Data Available');
         }
@@ -91,9 +91,72 @@ class RegionService extends BaseService implements RegionServiceContract
             $regionResponse->setStatus(true);
             $regionResponse->setMessage('Get Sub District Data Found');
             $regionResponse->setRegion($result);
-        }else{
+        } else {
             $regionResponse->setStatus(false);
             $regionResponse->setMessage('No Sub District Data Available');
+        }
+        return $regionResponse;
+    }
+
+    /**
+     * @param string $q
+     * @param int $provinceId
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getCityLikeWithProvinceId(string $q, int $provinceId, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse
+    {
+        $result = $this->getContainer()->call([$regionRepository, 'getCityLikeWithProvinceId'], ['q' => $q, 'provinceId' => $provinceId]);
+        if (count($result) > 0) {
+            $regionResponse->setStatus(true);
+            $regionResponse->setMessage('Get City Data By Province Id Found');
+            $regionResponse->setRegion($result);
+        } else {
+            $regionResponse->setStatus(false);
+            $regionResponse->setMessage('No City Data By Province Id Data Available');
+        }
+        return $regionResponse;
+    }
+
+    /**
+     * @param string $q
+     * @param int $provinceId
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getDistrictLikeWithProvinceId(string $q, int $provinceId, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse
+    {
+        $result = $this->getContainer()->call([$regionRepository, 'getDistrictLikeWithProvinceId'], ['q' => $q, 'provinceId' => $provinceId]);
+        if (count($result) > 0) {
+            $regionResponse->setStatus(true);
+            $regionResponse->setMessage('Get District Data By Province Id Found');
+            $regionResponse->setRegion($result);
+        } else {
+            $regionResponse->setStatus(false);
+            $regionResponse->setMessage('No District Data By Province Id Available');
+        }
+        return $regionResponse;
+    }
+
+    /**
+     * @param string $q
+     * @param int $cityId
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getDistrictLikeWithCityId(string $q, int $cityId, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse
+    {
+        $result = $this->getContainer()->call([$regionRepository, 'getDistrictLikeWithCityId'], ['q' => $q, 'cityId' => $cityId]);
+        if (count($result) > 0) {
+            $regionResponse->setStatus(true);
+            $regionResponse->setMessage('Get District Data By Province Id Found');
+            $regionResponse->setRegion($result);
+        } else {
+            $regionResponse->setStatus(false);
+            $regionResponse->setMessage('No District Data By Province Id Available');
         }
         return $regionResponse;
     }
