@@ -112,20 +112,29 @@ interface RegionRepositoryContract
 
     /**
      * @param string $q
-     * @param int $parentId
+     * @param int $provinceId
      * @param Region $region
      * @param int $limit
      * @return LengthAwarePaginator
      */
-    public function getCityLikeWithParentId(string $q, int $parentId, Region $region, int $limit = 20): LengthAwarePaginator;
+    public function getCityLikeWithProvinceId(string $q, int $provinceId, Region $region, int $limit = 20): LengthAwarePaginator;
 
 
     /**
      * @param string $q
-     * @param int $parentId
+     * @param int $cityId
      * @param Region $region
      * @param int $limit
      * @return LengthAwarePaginator
      */
-    public function getDistrictLikeWithParentId(string $q, int $parentId, Region $region, int $limit = 20): LengthAwarePaginator;
+    public function getDistrictLikeWithCityId(string $q, int $cityId, Region $region, int $limit = 20): LengthAwarePaginator;
+
+    /**
+     * @param string $q
+     * @param int $provinceId
+     * @param Region $region
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
+    public function getDistrictLikeWithProvinceId(string $q, int $provinceId, Region $region, int $limit = 20): LengthAwarePaginator;
 }

@@ -111,10 +111,10 @@ class RegionRepository implements RegionRepositoryContract
      * @param array $column
      * @param Region $region
      * @param int $id
-     * @param int|null $parentId
+     * @param int|null $provinceId
      * @return mixed
      */
-    protected function getStructCity(?string $q, array $column, Region $region, int $id = null, int $parentId = null)
+    protected function getStructCity(?string $q, array $column, Region $region, int $id = null, int $provinceId = null)
     {
         $city = array(
             "city.id AS city_id",
@@ -134,8 +134,8 @@ class RegionRepository implements RegionRepositoryContract
                         ->orWhere('city.name', 'LIKE', '%' . $q . '%');
                 })->when(!is_null($id), function ($query) use ($id) {
                     return $query->where('city.id', $id);
-                })->when(!is_null($parentId), function ($query) use ($parentId) {
-                    return $query->where('city.parent_id', $parentId);
+                })->when(!is_null($provinceId), function ($query) use ($provinceId) {
+                    return $query->where('city.parent_id', $provinceId);
                 });
 
     }
@@ -145,10 +145,11 @@ class RegionRepository implements RegionRepositoryContract
      * @param array $column
      * @param Region $region
      * @param int $id
-     * @param int|null $parentId
+     * @param int|null $cityId
+     * @param int|null $provinceId
      * @return mixed
      */
-    protected function getStructDistrict(?string $q, array $column, Region $region, int $id = null, int $parentId = null)
+    protected function getStructDistrict(?string $q, array $column, Region $region, int $id = null, int $cityId = null, int $provinceId = null)
     {
         $district = array(
             "district.id AS district_id",
@@ -156,7 +157,7 @@ class RegionRepository implements RegionRepositoryContract
 
         $column = array_merge($district, $column);
 
-        return $this->getStructCity($q, $column, $region)
+        return $this->getStructCity($q, $column, $region, null, $provinceId)
             ->join('regions AS district', function ($query) {
                 return $query->on('district.parent_id', 'city.id')
                     ->where('district.category_id', 3);
@@ -165,8 +166,8 @@ class RegionRepository implements RegionRepositoryContract
                     ->orWhere('district.name', 'LIKE', '%' . $q . '%');
             })->when(!is_null($id), function ($query) use ($id) {
                 return $query->where('district.id', $id);
-            })->when(!is_null($parentId), function ($query) use ($parentId) {
-                return $query->where('district.parent_id', $parentId);
+            })->when(!is_null($cityId), function ($query) use ($cityId) {
+                return $query->where('district.parent_id', $cityId);
             });
 
     }
@@ -290,29 +291,43 @@ class RegionRepository implements RegionRepositoryContract
 
     /**
      * @param string $q
-     * @param int $parentId
+     * @param int $provinceId
      * @param Region $region
      * @param int $limit
      * @return LengthAwarePaginator
      */
-    public function getCityLikeWithParentId(string $q, int $parentId, Region $region, int $limit = 20): LengthAwarePaginator
+    public function getCityLikeWithProvinceId(string $q, int $provinceId, Region $region, int $limit = 20): LengthAwarePaginator
     {
         return $this
-            ->getStructCity($q, [], $region, null, $parentId)
+            ->getStructCity($q, [], $region, null, $provinceId)
             ->paginate($limit);
     }
 
     /**
      * @param string $q
-     * @param int $parentId
+     * @param int $cityId
      * @param Region $region
      * @param int $limit
      * @return LengthAwarePaginator
      */
-    public function getDistrictLikeWithParentId(string $q, int $parentId, Region $region, int $limit = 20): LengthAwarePaginator
+    public function getDistrictLikeWithCityId(string $q, int $cityId, Region $region, int $limit = 20): LengthAwarePaginator
     {
         return $this
-            ->getStructDistrict($q, [], $region, $parentId)
+            ->getStructDistrict($q, [], $region, null, $cityId)
+            ->paginate($limit);
+    }
+
+    /**
+     * @param string $q
+     * @param int $provinceId
+     * @param Region $region
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
+    public function getDistrictLikeWithProvinceId(string $q, int $provinceId, Region $region, int $limit = 20): LengthAwarePaginator
+    {
+        return $this
+            ->getStructDistrict($q, [], $region, null, null, $provinceId)
             ->paginate($limit);
     }
 }

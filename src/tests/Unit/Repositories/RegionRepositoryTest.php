@@ -108,7 +108,7 @@ class RegionRepositoryTest extends TestCase
     {
         $parents = [1, 2, 3];
         $parent = $parents[$this->getFaker()->numberBetween(0, count($parents) - 1)];
-        $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLikeWithParentId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
+        $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLikeWithCityId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
         $this->assertGreaterThanOrEqual(1, count($results));
     }
 
@@ -116,7 +116,7 @@ class RegionRepositoryTest extends TestCase
     {
         $parents = [1, 2, 3];
         $parent = $parents[$this->getFaker()->numberBetween(0, count($parents) - 1)];
-        $results = $this->getContainer()->call([$this->regionRepository, 'getCityLikeWithParentId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
+        $results = $this->getContainer()->call([$this->regionRepository, 'getCityLikeWithProvinceId'], ['q' => self::SEARCH[$this->getRandomString()], 'parentId' => $parent]);
         $this->assertGreaterThanOrEqual(1, count($results));
     }
 }
