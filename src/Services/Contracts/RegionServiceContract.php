@@ -104,4 +104,13 @@ interface RegionServiceContract
      * @return RegionResponse
      */
     public function getDistrictLikeWithCityIn(string $q, array $cities, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse;
+
+    /**
+     * @param string $q
+     * @param array $ids
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getProvinceLikeWhereIdIn(string $q, array $ids, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse;
 }

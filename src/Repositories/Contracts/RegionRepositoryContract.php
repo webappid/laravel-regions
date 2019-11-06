@@ -165,4 +165,13 @@ interface RegionRepositoryContract
      * @return LengthAwarePaginator
      */
     public function getDistrictLikeWithProvinceIn(string $q, array $provinces, Region $region, int $limit = 20): LengthAwarePaginator;
+
+    /**
+     * @param string $q
+     * @param array $ids
+     * @param Region $region
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
+    public function getProvinceLikeWhereIdIn(string $q, array $ids, Region $region, int $limit = 20): LengthAwarePaginator;
 }

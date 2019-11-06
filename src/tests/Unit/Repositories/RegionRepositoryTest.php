@@ -148,4 +148,11 @@ class RegionRepositoryTest extends TestCase
         $results = $this->getContainer()->call([$this->regionRepository, 'getDistrictLikeWithProvinceIn'], ['q' => self::SEARCH[$this->getRandomString()], 'provinces' => $provinces]);
         $this->assertGreaterThanOrEqual(1, count($results));
     }
+
+    public function testProvinceLikeWhereIdIn()
+    {
+        $provinces = [11, 15];
+        $results = $this->getContainer()->call([$this->regionRepository, 'getProvinceLikeWhereIdIn'], ['q' => self::SEARCH[$this->getRandomString()], 'ids' => $provinces]);
+        $this->assertGreaterThanOrEqual(1, count($results));
+    }
 }

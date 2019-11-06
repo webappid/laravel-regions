@@ -80,11 +80,12 @@ class RegionRepository implements RegionRepositoryContract
     /**
      * @param string $q
      * @param array $column
-     * @param int $id
      * @param Region $region
+     * @param int $id
+     * @param array|null $ids
      * @return mixed
      */
-    protected function getStructProvince(?string $q, array $column, Region $region, int $id = null)
+    protected function getStructProvince(?string $q, array $column, Region $region, int $id = null, array $ids = null)
     {
         $province = array(
             "province.id AS province_id",
@@ -100,9 +101,10 @@ class RegionRepository implements RegionRepositoryContract
                 ->when(!is_null($q), function ($query) use ($q) {
                     return $query
                         ->orWhere('province.name', 'LIKE', '%' . $q . '%');
-                })
-                ->when(!is_null($id), function ($query) use ($id) {
+                })->when(!is_null($id), function ($query) use ($id) {
                     return $query->where('province.id', $id);
+                })->when(!is_null($ids), function ($query) use ($ids) {
+                    return $query->whereIn('province.id', $ids);
                 });
     }
 
@@ -334,7 +336,7 @@ class RegionRepository implements RegionRepositoryContract
     public function getDistrictLikeWithProvinceId(string $q, int $provinceId, Region $region, int $limit = 20): LengthAwarePaginator
     {
         return $this
-            ->getStructDistrict($q, [], $region, null, null, null,  $provinceId)
+            ->getStructDistrict($q, [], $region, null, null, null, $provinceId)
             ->paginate($limit);
     }
 
@@ -377,6 +379,20 @@ class RegionRepository implements RegionRepositoryContract
     {
         return $this
             ->getStructDistrict($q, [], $region, null, null, null, null, $provinces)
+            ->paginate($limit);
+    }
+
+    /**
+     * @param string $q
+     * @param array $ids
+     * @param Region $region
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
+    public function getProvinceLikeWhereIdIn(string $q, array $ids, Region $region, int $limit = 20): LengthAwarePaginator
+    {
+        return $this
+            ->getStructProvince($q, [], $region, null, $ids)
             ->paginate($limit);
     }
 }

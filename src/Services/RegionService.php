@@ -223,4 +223,25 @@ class RegionService extends BaseService implements RegionServiceContract
         }
         return $regionResponse;
     }
+
+    /**
+     * @param string $q
+     * @param array $ids
+     * @param RegionRepository $regionRepository
+     * @param RegionResponse $regionResponse
+     * @return RegionResponse
+     */
+    public function getProvinceLikeWhereIdIn(string $q, array $ids, RegionRepository $regionRepository, RegionResponse $regionResponse): RegionResponse
+    {
+        $result = $this->getContainer()->call([$regionRepository, 'getProvinceLikeWhereIdIn'], ['q' => $q, 'ids'=> $ids]);
+        if (count($result) > 0) {
+            $regionResponse->setStatus(true);
+            $regionResponse->setMessage('Get Province Data Found');
+            $regionResponse->setRegion($result);
+        } else {
+            $regionResponse->setStatus(false);
+            $regionResponse->setMessage('No Province Data Available');
+        }
+        return $regionResponse;
+    }
 }

@@ -96,4 +96,11 @@ class RegionServiceTest extends TestCase
         $results = $this->getContainer()->call([$this->regionService, 'getDistrictLikeWithProvinceIn'], ['q' => self::SEARCH[$this->getRandomString()], 'provinces' => $provinceList]);
         $this->assertTrue($results->isStatus());
     }
+
+    public function testGetProvinceLikeWhereIdIn()
+    {
+        $provinceList = [11, 15];
+        $results = $this->getContainer()->call([$this->regionService, 'getProvinceLikeWhereIdIn'], ['q' => self::SEARCH[$this->getRandomString()], 'ids' => $provinceList]);
+        $this->assertTrue($results->isStatus());
+    }
 }
