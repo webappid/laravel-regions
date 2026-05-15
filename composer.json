@@ -1,6 +1,6 @@
 {
   "name": "webappid/region",
-  "description": "Regions Data for laravel framework. Right now support for indonesian data only",
+  "description": "[ARCHIVED] Regions Data for laravel framework. Use DyanGalih/laravel-regions instead.",
   "license": "MIT",
   "authors": [
     {
